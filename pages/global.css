@@ -1,0 +1,15 @@
+/* Global font: Euclid Circular B for the whole app */
+*,
+*::before,
+*::after {
+  font-family: "Euclid Circular B", system-ui, "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+}
+
+html,
+body {
+  font-family: "Euclid Circular B", system-ui, "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  margin: 0;
+  padding: 0;
+}
