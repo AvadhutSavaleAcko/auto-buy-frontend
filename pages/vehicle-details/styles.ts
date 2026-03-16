@@ -10,7 +10,7 @@ export const PageWrapper = styled.div`
   background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
 `;
 
-export const ProposalContainer = styled.div`
+export const Container = styled.div`
   width: 100%;
   max-width: 420px;
   display: flex;

@@ -8,8 +8,8 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  experimental: {
-    turbopackUseSystemTlsCerts: true,
+  turbopack: {
+    useSystemTlsCerts: true,
   },
   async rewrites() {
     return [

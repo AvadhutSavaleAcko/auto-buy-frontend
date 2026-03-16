@@ -1,11 +1,5 @@
-/**
- * Acko API client: proposals and next-node.
- * Set NEXT_PUBLIC_ACKO_API_BASE to your origin when app is on ackodev.com (e.g. "" for relative).
- */
-
 import mockProposalResponse from "./mockresponse.json";
 
-/** Set to false to use real createProposal API again */
 const USE_MOCK_PROPOSAL = false;
 
 const DEFAULT_HEADERS: Record<string, string> = {
@@ -91,8 +85,9 @@ export async function getNextNode(
       returnHydratedData: true,
       ...options?.data,
     },
-    journey: "fresh_car",
-    current_node: "entry_node",
+    journey: "fresh_car_2",
+    current_node: "vehicle-details",
+    expected_node: "vehicle-details",
     ...options,
   };
 

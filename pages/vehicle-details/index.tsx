@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { ProposalContainer, ErrorMessage, PageWrapper } from "./styles";
+import { Container, ErrorMessage, PageWrapper } from "./styles";
 import PageBoxLayout from "../../components/PageBoxLayout";
 import FlowHeader from "../../components/FlowHeader";
 import AssistantCard from "../../components/AssistantCard";
@@ -67,12 +67,12 @@ const ProposalPage = () => {
   if (!router.isReady) {
     return (
       <PageWrapper>
-        <ProposalContainer>
+        <Container>
           <AssistantCard
             phase="initial"
             registrationNumber={registrationNumber ?? undefined}
           />
-        </ProposalContainer>
+        </Container>
       </PageWrapper>
     );
   }
@@ -84,12 +84,12 @@ const ProposalPage = () => {
           <FlowHeader progressPercent={10} onBack={handleBack} onSummary={handleSummary} />
         }
       >
-        <ProposalContainer>
+        <Container>
           <ErrorMessage>
             Missing proposal or registration number. Please start from the
             registration page.
           </ErrorMessage>
-        </ProposalContainer>
+        </Container>
       </PageBoxLayout>
     );
   }
@@ -103,9 +103,9 @@ const ProposalPage = () => {
           <FlowHeader progressPercent={10} onBack={handleBack} onSummary={handleSummary} />
         }
       >
-        <ProposalContainer>
+        <Container>
           <ErrorMessage>{nextNodeError}</ErrorMessage>
-        </ProposalContainer>
+        </Container>
       </PageBoxLayout>
     );
   }
@@ -113,13 +113,13 @@ const ProposalPage = () => {
   if (!hasNextNodeData) {
     return (
       <PageWrapper>
-        <ProposalContainer>
+        <Container>
           <AssistantCard
             phase={assistantPhase}
             registrationNumber={registrationNumber}
             messageDelayMs={MESSAGE_DELAY_MS}
           />
-        </ProposalContainer>
+        </Container>
       </PageWrapper>
     );
   }
@@ -130,7 +130,7 @@ const ProposalPage = () => {
         <FlowHeader progressPercent={10} onBack={handleBack} onSummary={handleSummary} />
       }
     >
-      <ProposalContainer>
+      <Container>
         <AssistantCard
           phase="success"
           onBuyingForSomeoneClick={handleBuyingForSomeone}
@@ -149,7 +149,7 @@ const ProposalPage = () => {
           secondaryCtaLabel="I want to edit details"
           onSecondaryCta={() => {}}
         />
-      </ProposalContainer>
+      </Container>
     </PageBoxLayout>
   );
 };
