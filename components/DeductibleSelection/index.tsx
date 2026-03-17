@@ -76,7 +76,7 @@ const DeductibleSelection: React.FC = () => {
                   }
                 }}
               >
-                <OptionContent>
+                <OptionContent $selected={isSelected}>
                   <DeductibleAmount>{opt.label}</DeductibleAmount>
                   {!isSelected && (
                     <DeductibleEffect>{opt.effectLabel}</DeductibleEffect>

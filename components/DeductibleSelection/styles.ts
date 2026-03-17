@@ -43,11 +43,11 @@ export const OptionCard = styled.div<OptionCardProps>`
   box-sizing: border-box;
   border-radius: 12px;
   border: ${(p: OptionCardProps) =>
-    p.$selected ? "2px solid #0fa357" : "1px solid #e2e8f0"};
+    p.$selected ? "1px solid #0fa357" : "1px solid #e2e8f0"};
   background: ${(p: OptionCardProps) =>
-    p.$selected ? "rgba(235, 251, 238, 0.6)" : "#f8f9fa"};
+    p.$selected ? "rgba(255, 255, 255, 0.6)" : "#ffffff"};
   cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.01s ease, background 0.08s ease;
   display: flex;
   align-items: center;
 
@@ -57,20 +57,26 @@ export const OptionCard = styled.div<OptionCardProps>`
   }
 `;
 
-export const OptionContent = styled.div`
+interface OptionContentProps {
+  $selected?: boolean;
+}
+
+export const OptionContent = styled.div<OptionContentProps>`
   display: flex;
   align-items: center;
   gap: 8px;
   flex: 1;
+  justify-content: ${(p: OptionContentProps) =>
+    p.$selected ? "center" : "flex-start"};
 `;
 
 export const DeductibleAmount = styled.span`
-  font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont,
-    sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-  color: #121212;
+  color: var(--text-primary-n-600, #040222);
+  font-family: "Euclid Circular B";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
 `;
 
 export const DeductibleEffect = styled.span`
