@@ -15,7 +15,7 @@ const nextConfig = {
     return [
       {
         source: "/gi/auto-storefront/registration-number",
-        destination: "/registration-number",
+        destination: "/fresh-car/registration-number",
       },
     ];
   },

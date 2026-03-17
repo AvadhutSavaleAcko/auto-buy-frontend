@@ -14,7 +14,7 @@ import {
 } from "./styles";
 import { createProposal } from "../../lib/api/apis";
 
-const RegistrationNumberPage = () => {
+const RegistrationNumber = () => {
   const router = useRouter();
   const [regNo, setRegNo] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,7 +33,7 @@ const RegistrationNumberPage = () => {
         proposal_ekey: proposal.ekey,
         registration_number: trimmed,
       });
-      router.push(`/vehicle-details?${params.toString()}`);
+      router.push(`/fresh-car/vehicle-details?${params.toString()}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
       setLoading(false);
@@ -57,7 +57,7 @@ const RegistrationNumberPage = () => {
               id="reg-no"
               type="text"
               value={regNo}
-              onChange={(e) => setRegNo(e.target.value)}
+              onChange={(e: any) => setRegNo(e.target.value)}
               placeholder="e.g. MH12AB1234"
               aria-label="Car registration number"
               autoComplete="off"
@@ -74,4 +74,4 @@ const RegistrationNumberPage = () => {
   );
 };
 
-export default RegistrationNumberPage;
+export default RegistrationNumber;

@@ -16,14 +16,39 @@ export const FooterWrapper = styled.div`
   }
 `;
 
-/** Primary CTA – full width, green, 48px height. */
-export const PrimaryButton = styled.button`
+/** Row for footer when leftLabel is used: left text, right button. */
+export const FooterRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+`;
+
+/** Left-side label (e.g. premium summary). */
+export const FooterLeftLabel = styled.span`
+  font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #36354c;
+  flex-shrink: 0;
+`;
+
+interface PrimaryButtonProps {
+  $compact?: boolean;
+}
+
+/** Primary CTA – full width when alone, or flex when in row; green, 48px height. */
+export const PrimaryButton = styled.button<PrimaryButtonProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: ${(p: PrimaryButtonProps) => (p.$compact ? "auto" : "100%")};
+  min-width: ${(p: PrimaryButtonProps) => (p.$compact ? "120px" : "none")};
   height: 48px;
   padding: 10px 16px;
+  margin-top: ${(p: PrimaryButtonProps) => (p.$compact ? "0" : "12px")};
   border: none;
   border-radius: 12px;
   font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -33,7 +58,6 @@ export const PrimaryButton = styled.button`
   cursor: pointer;
   transition: opacity 0.2s ease, transform 0.1s ease, background-color 0.2s ease;
   box-sizing: border-box;
-  margin-top: 12px;
   &:not(:disabled) {
     background-color: #0fa357;
     color: #fff;

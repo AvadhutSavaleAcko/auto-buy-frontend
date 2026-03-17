@@ -1,5 +1,4 @@
-import styled from "styled-components";
-
+import { styled } from "@acko-tech/building-blocks.ui.common";
 
 export const PageWrapper = styled.div`
   min-height: 100vh;

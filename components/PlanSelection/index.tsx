@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
   ProposalContainer,
@@ -7,32 +7,82 @@ import {
   TapToChoose,
   PlanList,
 } from "./styles";
-import PageBoxLayout from "../../components/PageBoxLayout";
-import FlowHeader from "../../components/FlowHeader";
-import AssistantCard from "../../components/AssistantCard";
-import PlanCard from "../../components/plan_card";
-import Footer from "../../components/Footer";
+import PageBoxLayout from "../PageBoxLayout";
+import FlowHeader from "../FlowHeader";
+import AssistantCard from "../AssistantCard";
+import PlanCard from "../plan_card";
+import Footer from "../Footer";
 import { PLAN_SELECTION_PAGE_MESSAGES } from "../../config/assistantMessages";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  setProposalData,
+  setProposalError,
+  setProposalLoading,
+} from "../../store/slices/proposalSlice";
+import { getNextNode } from "../../lib/api/apis";
+import { parseNextNodeResponse } from "../../lib/parsers/proposalParser";
+
 
 type PlanId = "third-party" | "comprehensive" | null;
 
-const PlanSelectionPage = () => {
+const PlanSelection = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const proposalEkey = router.query.proposal_ekey as string | undefined;
   const registrationNumber = router.query.registration_number as
     | string
     | undefined;
 
+  const { data: proposalData, loading, error: proposalError } = useAppSelector(
+    (state) => state.proposal
+  );
+
   const [selectedPlan, setSelectedPlan] = useState<PlanId>(null);
+  
+  useEffect(() => {
+    if (!proposalEkey?.trim()) return;
+
+    let cancelled = false;
+
+    dispatch(setProposalLoading());
+
+    getNextNode(proposalEkey, { current_node: "plan-selection", expected_node: "plan-selection" })
+      .then((apiResponse) => {
+        if (cancelled) return;
+
+        const parsed = parseNextNodeResponse(
+          apiResponse as Record<string, unknown>
+        );
+
+        if (parsed) {
+          dispatch(setProposalData(parsed));
+        } else {
+          dispatch(setProposalError("Unable to parse proposal data from response."));
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          dispatch(
+            setProposalError(
+              err instanceof Error ? err.message : "Failed to load next step"
+            )
+          );
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [proposalEkey, dispatch]);
 
   const handleBack = () => router.back();
   const handleSummary = () => {};
-
+  
   const handleContinue = () => {
     // TODO: navigate to next step when plan selection flow is defined
     router.back();
   };
-
+  
   if (!router.isReady) {
     return (
       <PageWrapper>
@@ -61,6 +111,37 @@ const PlanSelectionPage = () => {
           </ErrorMessage>
         </ProposalContainer>
       </PageBoxLayout>
+    );
+  }
+
+  if (proposalError && !proposalData) {
+    return (
+      <PageBoxLayout
+        header={
+          <FlowHeader
+            progressPercent={40}
+            onBack={handleBack}
+            onSummary={handleSummary}
+          />
+        }
+      >
+        <ProposalContainer>
+          <ErrorMessage>{proposalError}</ErrorMessage>
+        </ProposalContainer>
+      </PageBoxLayout>
+    );
+  }
+
+  if (loading || !proposalData) {
+    return (
+      <PageWrapper>
+        <ProposalContainer>
+          <AssistantCard
+            phase="success"
+            messages={PLAN_SELECTION_PAGE_MESSAGES}
+          />
+        </ProposalContainer>
+      </PageWrapper>
     );
   }
 
@@ -114,4 +195,4 @@ const PlanSelectionPage = () => {
   );
 };
 
-export default PlanSelectionPage;
+export default PlanSelection;

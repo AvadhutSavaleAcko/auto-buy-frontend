@@ -30,3 +30,32 @@ export const PLAN_SELECTION_PAGE_MESSAGES: string[] = [
   "I'd personally recommend the **Comprehensive Plan**. It is great value for money and offers Zero Depreciation option as well.",
   "Some ACKO Special* Comprehensive Plans also come with a **FREE dashcam**!",
 ];
+
+/** Sequential messages shown on the addon-selection page (Add-on coverages). */
+export const ADDON_SELECTION_PAGE_MESSAGES: string[] = [
+  "Based on your answers, I have created a pack of additional coverages that are relevant for you.",
+  "Based on my calculations these can save you up to ₹25,000 during claims.",
+];
+
+/** Sequential messages shown on the coverage-selection page (Build your own). */
+export const COVERAGE_SELECTION_PAGE_MESSAGES: string[] = [
+  "Choose the coverages that matter most to you.",
+  "These are calculated based on your car's age and usage. You can add or remove them anytime.",
+];
+
+/** Sequential messages shown on the deductible-selection page. */
+export const DEDUCTIBLE_SELECTION_PAGE_MESSAGES: string[] = [
+  "A voluntary deductible is the amount you agree to pay from your pocket during a claim.",
+  "A higher deductible lowers your premium, but you'll pay more if you ever make a claim.",
+];
+
+/** Sequential messages shown on the yes-no-question page (claim history). */
+export const YES_NO_QUESTION_PAGE_MESSAGES: string[] = [
+  "One last thing — have you made any claims on this car in the last year?",
+];
+
+/** Sequential messages shown on the checkout-details page (final review). */
+export const PROPOSAL_SUMMARY_PAGE_MESSAGES: string[] = [
+  "Here's a summary of your car insurance proposal.",
+  "Please review your details before we proceed to payment.",
+];

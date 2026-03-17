@@ -64,6 +64,7 @@ export async function createProposal(
 export interface NextNodePayload {
   proposal_ekey: string;
   current_node?: string;
+  expected_node?: string;
   journey?: string;
   data?: Record<string, unknown>;
 }
@@ -72,10 +73,16 @@ export interface NextNodeResponse {
   [key: string]: unknown;
 }
 
+export type GetNextNodeOptions = {
+  current_node: string;
+  expected_node: string;
+} & Partial<Omit<NextNodePayload, "current_node" | "expected_node">>;
+
 export async function getNextNode(
   proposalEkey: string,
-  options?: Partial<NextNodePayload>
+  options: GetNextNodeOptions
 ): Promise<NextNodeResponse> {
+  const { current_node, expected_node, data: optionsData, ...rest } = options;
   const body = {
     data: {
       is_new: false,
@@ -83,12 +90,12 @@ export async function getNextNode(
       product: "car",
       proposal_ekey: proposalEkey,
       returnHydratedData: true,
-      ...options?.data,
+      ...optionsData,
     },
     journey: "fresh_car_2",
-    current_node: "vehicle-details",
-    expected_node: "vehicle-details",
-    ...options,
+    current_node,
+    expected_node,
+    ...rest,
   };
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_SDUI_API_SERVICE}/sdui/api/v1/next-node`, {

@@ -6,32 +6,36 @@ import {
   ErrorMessage,
   PageWrapper,
 } from "./styles";
-import PageBoxLayout from "../../components/PageBoxLayout";
-import FlowHeader from "../../components/FlowHeader";
-import AssistantCard from "../../components/AssistantCard";
-import UserDetailsCard from "../../components/UserDetailsCard";
+import PageBoxLayout from "../PageBoxLayout";
+import FlowHeader from "../FlowHeader";
+import AssistantCard from "../AssistantCard";
+import UserDetailsCard from "../UserDetailsCard";
 import { USER_DETAILS_PAGE_MESSAGES } from "../../config/assistantMessages";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { setGlobalData } from "../../store/slices/globalDataSlice";
 
-const UserDetailsPage = () => {
+const UserDetails = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const globalData = useAppSelector((state) => state.globalData);
   const proposalEkey = router.query.proposal_ekey as string | undefined;
   const registrationNumber = router.query.registration_number as
     | string
     | undefined;
 
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [pinCode, setPinCode] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(globalData.phone ?? "");
+  const [pinCode, setPinCode] = useState(globalData.pinCode ?? "");
 
   const handleBack = () => router.back();
   const handleSummary = () => {};
 
-  const isValid =
-    phoneNumber.length === 10 && pinCode.length === 6;
+  const isValid = phoneNumber.length === 10 && pinCode.length === 6;
 
   const handleContinue = () => {
     if (!isValid || !proposalEkey || !registrationNumber) return;
+    dispatch(setGlobalData({ phone: phoneNumber, pinCode }));
     router.push({
-      pathname: "/idv-info",
+      pathname: "/fresh-car/idv-info",
       query: { proposal_ekey: proposalEkey, registration_number: registrationNumber },
     });
   };
@@ -97,4 +101,4 @@ const UserDetailsPage = () => {
   );
 };
 
-export default UserDetailsPage;
+export default UserDetails;
