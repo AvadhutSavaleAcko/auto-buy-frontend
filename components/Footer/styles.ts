@@ -10,6 +10,8 @@ export const FooterWrapper = styled.div`
   max-width: 400px;
   padding: 0 12px 20px;
   box-sizing: border-box;
+  background: #fff;
+  z-index: 10;
   box-shadow: 0 -4px 8px 0 rgba(54, 53, 76, 0.06);
   @media (min-width: 768px) {
     padding: 0 16px 20px;
@@ -25,7 +27,7 @@ export const FooterRow = styled.div`
   margin-top: 12px;
 `;
 
-/** Left-side label (e.g. premium summary). */
+/** Left-side label (e.g. premium summary) – legacy single-line style. */
 export const FooterLeftLabel = styled.span`
   font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 14px;
@@ -33,6 +35,52 @@ export const FooterLeftLabel = styled.span`
   line-height: 20px;
   color: #36354c;
   flex-shrink: 0;
+`;
+
+/** Premium section container when using premiumAmount + gstText layout. */
+export const PremiumSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+`;
+
+/** "Premium" label – grey, small. */
+export const PremiumLabel = styled.span`
+  color: var(--Text-Tertiary-grey300, #757575);
+  font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+`;
+
+/** Premium amount – black, bold, large. */
+export const PremiumAmount = styled.span`
+  color: var(--Black, #000);
+  font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: -0.1px;
+`;
+
+/** GST text – grey, small, inline with amount. */
+export const PremiumGst = styled.span`
+  color: var(--Text-Tertiary-grey300, #757575);
+  font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+`;
+
+/** Wrapper for amount + GST on same line. */
+export const PremiumAmountRow = styled.span`
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
 `;
 
 interface PrimaryButtonProps {

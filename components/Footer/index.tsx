@@ -1,5 +1,15 @@
 import React from "react";
-import { FooterWrapper, FooterRow, FooterLeftLabel, PrimaryButton } from "./styles";
+import {
+  FooterWrapper,
+  FooterRow,
+  FooterLeftLabel,
+  PremiumSection,
+  PremiumLabel,
+  PremiumAmount,
+  PremiumAmountRow,
+  PremiumGst,
+  PrimaryButton,
+} from "./styles";
 
 export interface FooterProps {
   /** Button label (e.g. "Okay") */
@@ -8,8 +18,12 @@ export interface FooterProps {
   onPrimaryClick: () => void;
   /** Disable the button (e.g. loading) */
   disabled?: boolean;
-  /** Optional left-side label (e.g. "Premium ₹10,200 +18% GST"); when set, footer shows label + button row */
+  /** Optional left-side label (legacy); when set, footer shows label + button row */
   leftLabel?: string;
+  /** Premium amount (e.g. "₹12,000"); when set with gstText, uses new premium layout */
+  premiumAmount?: string;
+  /** GST text (e.g. "+18% GST"); use with premiumAmount for new layout */
+  gstText?: string;
   /** Optional className */
   className?: string;
   /** Optional aria-label for the button */
@@ -21,13 +35,18 @@ const Footer: React.FC<FooterProps> = ({
   onPrimaryClick,
   disabled = false,
   leftLabel,
+  premiumAmount,
+  gstText,
   className,
   ariaLabel,
 }) => {
+  const hasPremiumLayout = Boolean(premiumAmount);
+  const hasLeftContent = hasPremiumLayout || Boolean(leftLabel);
+
   const content = (
     <PrimaryButton
       type="button"
-      $compact={Boolean(leftLabel)}
+      $compact={hasLeftContent}
       onClick={onPrimaryClick}
       disabled={disabled}
       aria-label={ariaLabel ?? label}
@@ -36,11 +55,23 @@ const Footer: React.FC<FooterProps> = ({
     </PrimaryButton>
   );
 
+  const leftContent = hasPremiumLayout ? (
+    <PremiumSection>
+      <PremiumLabel>Premium</PremiumLabel>
+      <PremiumAmountRow>
+        <PremiumAmount>{premiumAmount}</PremiumAmount>
+        {gstText && <PremiumGst>{gstText}</PremiumGst>}
+      </PremiumAmountRow>
+    </PremiumSection>
+  ) : leftLabel ? (
+    <FooterLeftLabel>{leftLabel}</FooterLeftLabel>
+  ) : null;
+
   return (
     <FooterWrapper className={className}>
-      {leftLabel ? (
+      {leftContent ? (
         <FooterRow>
-          <FooterLeftLabel>{leftLabel}</FooterLeftLabel>
+          {leftContent}
           {content}
         </FooterRow>
       ) : (

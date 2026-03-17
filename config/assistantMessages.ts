@@ -45,8 +45,9 @@ export const COVERAGE_SELECTION_PAGE_MESSAGES: string[] = [
 
 /** Sequential messages shown on the deductible-selection page. */
 export const DEDUCTIBLE_SELECTION_PAGE_MESSAGES: string[] = [
-  "A voluntary deductible is the amount you agree to pay from your pocket during a claim.",
-  "A higher deductible lowers your premium, but you'll pay more if you ever make a claim.",
+  "From what I can see, you have a pretty good driving record.",
+  "You could choose a deductible to lower your premium. You’d only pay that amount if you ever make a claim.",
+  "A deductible of ₹5,000 is a safe choice. It will bring down your premium and won’t pinch, even if you claim."
 ];
 
 /** Sequential messages shown on the yes-no-question page (claim history). */

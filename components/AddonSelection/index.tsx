@@ -91,7 +91,8 @@ const AddonSelection = () => {
         </BuildYourOwnCard>
       </ContentContainer>
       <Footer
-        leftLabel="Premium ₹10,200 +18% GST"
+        premiumAmount="₹10,200"
+        gstText="+18% GST"
         label="Continue"
         onPrimaryClick={handleContinue}
         disabled={selection === null}

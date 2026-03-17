@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import {
   ContentContainer,
+  AssistantCardWrapper,
   OptionsSection,
-  SectionLabel,
   OptionCard,
-  OptionLeft,
+  OptionContent,
   DeductibleAmount,
-  DeductibleDescription,
   DeductibleEffect,
-  RadioDot,
 } from "./styles";
 import PageBoxLayout from "../PageBoxLayout";
 import FlowHeader from "../FlowHeader";
@@ -22,32 +20,16 @@ type DeductibleValue = "0" | "5000" | "8000";
 interface DeductibleOption {
   value: DeductibleValue;
   label: string;
-  description: string;
   effectLabel: string;
-  positive?: boolean;
-  negative?: boolean;
 }
 
 const OPTIONS: DeductibleOption[] = [
-  {
-    value: "0",
-    label: "Deductible ₹0",
-    description: "You pay nothing extra during a claim",
-    effectLabel: "+₹1,500 to premium",
-    positive: true,
-  },
-  {
-    value: "5000",
-    label: "Deductible ₹5,000",
-    description: "You pay ₹5,000 from pocket during a claim",
-    effectLabel: "No change",
-  },
+  { value: "0", label: "Deductible ₹0", effectLabel: "Adds ₹1,500 to premium" },
+  { value: "5000", label: "Deductible ₹5,000", effectLabel: "No change" },
   {
     value: "8000",
     label: "Deductible ₹8,000",
-    description: "You pay ₹8,000 from pocket during a claim",
-    effectLabel: "−₹2,500 from premium",
-    negative: true,
+    effectLabel: "Reduces ₹2,500 from premium",
   },
 ];
 
@@ -69,49 +51,49 @@ const DeductibleSelection: React.FC = () => {
       }
     >
       <ContentContainer>
-        <AssistantCard
-          phase="success"
-          messages={DEDUCTIBLE_SELECTION_PAGE_MESSAGES}
-        />
-
+      <AssistantCardWrapper>
+          <AssistantCard
+            phase="success"
+            messages={DEDUCTIBLE_SELECTION_PAGE_MESSAGES}
+          />
+        </AssistantCardWrapper>
         <div>
-          <SectionLabel>Select voluntary deductible</SectionLabel>
           <OptionsSection>
-            {OPTIONS.map((opt) => (
-              <OptionCard
-                key={opt.value}
-                $selected={selected === opt.value}
-                role="radio"
-                tabIndex={0}
-                aria-checked={selected === opt.value}
-                aria-label={`${opt.label} – ${opt.effectLabel}`}
-                onClick={() => setSelected(opt.value)}
-                onKeyDown={(e: React.KeyboardEvent) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setSelected(opt.value);
-                  }
-                }}
-              >
-                <OptionLeft>
-                  <DeductibleAmount>{opt.label}</DeductibleAmount>
-                  <DeductibleDescription>{opt.description}</DeductibleDescription>
-                </OptionLeft>
-                <DeductibleEffect
-                  $positive={opt.positive}
-                  $negative={opt.negative}
+            {OPTIONS.map((opt) => {
+              const isSelected = selected === opt.value;
+              return (
+                <OptionCard
+                  key={opt.value}
+                  $selected={isSelected}
+                  role="radio"
+                  tabIndex={0}
+                  aria-checked={isSelected}
+                  aria-label={`${opt.label} – ${opt.effectLabel}`}
+                  onClick={() => setSelected(opt.value)}
+                  onKeyDown={(e: React.KeyboardEvent) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setSelected(opt.value);
+                    }
+                  }}
                 >
-                  {opt.effectLabel}
-                </DeductibleEffect>
-                <RadioDot $selected={selected === opt.value} />
-              </OptionCard>
-            ))}
+                  <OptionContent>
+                    <DeductibleAmount>{opt.label}</DeductibleAmount>
+                    {!isSelected && (
+                      <DeductibleEffect>{opt.effectLabel}</DeductibleEffect>
+                    )}
+                  </OptionContent>
+                </OptionCard>
+              );
+            })}
           </OptionsSection>
         </div>
+
       </ContentContainer>
 
       <Footer
-        leftLabel="Premium ₹10,200 +18% GST"
+        premiumAmount="₹10,200"
+        gstText="+18% GST"
         label="Continue"
         onPrimaryClick={handleContinue}
         disabled={selected === null}

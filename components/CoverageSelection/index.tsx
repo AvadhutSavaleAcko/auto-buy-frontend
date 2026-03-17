@@ -101,7 +101,7 @@ const CoverageSelection: React.FC = () => {
   ).reduce((sum, c) => sum + c.priceValue, 0);
 
   const totalPremium = BASE_PREMIUM + addonTotal;
-  const premiumLabel = `Premium ₹${totalPremium.toLocaleString("en-IN")} +18% GST`;
+  const premiumAmount = `₹${totalPremium.toLocaleString("en-IN")}`;
 
   const handleContinue = () => {
     router.push("/fresh-car/deductible-selection");
@@ -147,7 +147,8 @@ const CoverageSelection: React.FC = () => {
       </ContentContainer>
 
       <Footer
-        leftLabel={premiumLabel}
+        premiumAmount={premiumAmount}
+        gstText="+18% GST"
         label="Continue"
         onPrimaryClick={handleContinue}
         disabled={selected.size === 0}
