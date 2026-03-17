@@ -3,22 +3,34 @@ import { styled } from "@acko-tech/building-blocks.ui.common";
 export const ContentContainer = styled.div`
   width: 100%;
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 24px;
-  padding-bottom: 88px;
   box-sizing: border-box;
 `;
 
-export const AssistantCardWrapper = styled.div`
-  margin-top: auto;
+export const MessagesScrollArea = styled.div`
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 220px;
+  min-height: 0;
 `;
 
 export const OptionsSection = styled.div`
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 400px;
+  padding: 0 24px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  z-index: 5;
+  background: #fff;
 `;
 
 interface OptionCardProps {

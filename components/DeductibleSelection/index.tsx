@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import {
   ContentContainer,
-  AssistantCardWrapper,
+  MessagesScrollArea,
   OptionsSection,
   OptionCard,
   OptionContent,
@@ -51,44 +51,41 @@ const DeductibleSelection: React.FC = () => {
       }
     >
       <ContentContainer>
-      <AssistantCardWrapper>
+        <MessagesScrollArea>
           <AssistantCard
             phase="success"
             messages={DEDUCTIBLE_SELECTION_PAGE_MESSAGES}
           />
-        </AssistantCardWrapper>
-        <div>
-          <OptionsSection>
-            {OPTIONS.map((opt) => {
-              const isSelected = selected === opt.value;
-              return (
-                <OptionCard
-                  key={opt.value}
-                  $selected={isSelected}
-                  role="radio"
-                  tabIndex={0}
-                  aria-checked={isSelected}
-                  aria-label={`${opt.label} – ${opt.effectLabel}`}
-                  onClick={() => setSelected(opt.value)}
-                  onKeyDown={(e: React.KeyboardEvent) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setSelected(opt.value);
-                    }
-                  }}
-                >
-                  <OptionContent>
-                    <DeductibleAmount>{opt.label}</DeductibleAmount>
-                    {!isSelected && (
-                      <DeductibleEffect>{opt.effectLabel}</DeductibleEffect>
-                    )}
-                  </OptionContent>
-                </OptionCard>
-              );
-            })}
-          </OptionsSection>
-        </div>
-
+        </MessagesScrollArea>
+        <OptionsSection>
+          {OPTIONS.map((opt) => {
+            const isSelected = selected === opt.value;
+            return (
+              <OptionCard
+                key={opt.value}
+                $selected={isSelected}
+                role="radio"
+                tabIndex={0}
+                aria-checked={isSelected}
+                aria-label={`${opt.label} – ${opt.effectLabel}`}
+                onClick={() => setSelected(opt.value)}
+                onKeyDown={(e: React.KeyboardEvent) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setSelected(opt.value);
+                  }
+                }}
+              >
+                <OptionContent>
+                  <DeductibleAmount>{opt.label}</DeductibleAmount>
+                  {!isSelected && (
+                    <DeductibleEffect>{opt.effectLabel}</DeductibleEffect>
+                  )}
+                </OptionContent>
+              </OptionCard>
+            );
+          })}
+        </OptionsSection>
       </ContentContainer>
 
       <Footer
