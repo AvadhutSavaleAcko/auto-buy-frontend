@@ -54,7 +54,7 @@ export const QuestionText = styled.p`
 export const ButtonsRow = styled.div`
   display: flex;
   gap: 10px;
-  margin-left: 72px; 
+  margin-left: 136px; 
   width: fit-content;
   max-width: 334px;
 `;
@@ -64,46 +64,25 @@ interface ButtonProps {
   $disabled?: boolean;
 }
 
-export const YesButton = styled.button<ButtonProps>`
-  min-width: 80px;
+export const YesNoButton = styled.button<ButtonProps>`
+  min-width: 98px;
   height: 40px;
   padding: 0 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   line-height: 20px;
   cursor: ${(p) => (p.$disabled ? "default" : "pointer")};
   pointer-events: ${(p) => (p.$disabled ? "none" : "auto")};
   transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
   border: ${(p) => (p.$selected ? "none" : "1px solid #e2e8f0")};
-  background: ${(p) => (p.$selected ? "#0fa357" : "#ffffff")};
+  background: ${(p) => (p.$selected ? "#0FA457" : "linear-gradient(122deg, #FDFEFF 0%, #F4F1FC 100%)")};
   color: ${(p) => (p.$selected ? "#ffffff" : "#36354c")};
 
   &:hover {
     border-color: #0fa357;
     background: ${(p) => (p.$selected ? "#0fa357" : "rgba(15, 163, 87, 0.04)")};
   }
-`;
-
-export const NoButton = styled.button<ButtonProps>`
-  min-width: 80px;
-  height: 40px;
-  padding: 0 20px;
-  border-radius: 10px;
-  font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 20px;
-  cursor: ${(p) => (p.$disabled ? "default" : "pointer")};
-  pointer-events: ${(p) => (p.$disabled ? "none" : "auto")};
-  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
-  border: ${(p) => (p.$selected ? "none" : "1px solid #e2e8f0")};
-  background: ${(p) => (p.$selected ? "#0fa357" : "#ffffff")};
-  color: ${(p) => (p.$selected ? "#ffffff" : "#36354c")};
-
-  &:hover {
-    border-color: #0fa357;
-    background: ${(p) => (p.$selected ? "#0fa357" : "rgba(15, 163, 87, 0.04)")};
-  }
+  box-shadow: 0 6px 12px -2px rgba(54, 53, 76, 0.20);
 `;

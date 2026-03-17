@@ -7,8 +7,7 @@ import {
   QuestionBubble,
   QuestionText,
   ButtonsRow,
-  YesButton,
-  NoButton,
+  YesNoButton
 } from "./styles";
 
 export type YesNoValue = "yes" | "no" | null;
@@ -49,7 +48,7 @@ const YesNoBlock: FC<YesNoBlockProps> = ({
         </QuestionBubble>
       </QuestionRow>
       <ButtonsRow role="radiogroup" aria-label={question}>
-        <YesButton
+        <YesNoButton
           type="button"
           $selected={value === "yes"}
           $disabled={disabled}
@@ -58,8 +57,8 @@ const YesNoBlock: FC<YesNoBlockProps> = ({
           aria-label="Yes"
         >
           Yes
-        </YesButton>
-        <NoButton
+        </YesNoButton>
+        <YesNoButton
           type="button"
           $selected={value === "no"}
           $disabled={disabled}
@@ -68,7 +67,7 @@ const YesNoBlock: FC<YesNoBlockProps> = ({
           aria-label="No"
         >
           No
-        </NoButton>
+        </YesNoButton>
       </ButtonsRow>
     </Block>
   );
