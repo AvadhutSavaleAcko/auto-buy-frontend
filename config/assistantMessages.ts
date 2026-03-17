@@ -103,6 +103,31 @@ export const YES_NO_QUESTION_PAGE_MESSAGES: string[] = [
   "One last thing — have you made any claims on this car in the last year?",
 ];
 
+/** Config for the enhance-coverage page (assistant intro + Yes/No questions). */
+export interface EnhanceCoverageQuestion {
+  id: string;
+  question: string;
+}
+
+export interface EnhanceCoverageConfig {
+  /** Intro messages shown by the assistant before the questions. */
+  introMessages: string[];
+  /** Yes/No questions to show. */
+  questions: EnhanceCoverageQuestion[];
+}
+
+export const ENHANCE_COVERAGE_CONFIG: EnhanceCoverageConfig = {
+  introMessages: [
+    "Let's enhance your plan with important coverages.",
+    "Just answer a few questions so that I can get the relevant additional coverages for you.",
+  ],
+  questions: [
+    { id: "has-driver", question: "Do you have a driver?" },
+    { id: "long-road-trips", question: "Do you go on long road trips often?" },
+    { id: "flood-prone-area", question: "Do you live in a flood-prone area?" },
+  ],
+};
+
 /** Sequential messages shown on the checkout-details page (final review). */
 export const PROPOSAL_SUMMARY_PAGE_MESSAGES: string[] = [
   "Here's a summary of your car insurance proposal.",
