@@ -30,8 +30,8 @@ const EnhanceCoverage: React.FC = () => {
 
   const [answers, setAnswers] = useState<AnswerMap>({});
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showQuestions, setShowQuestions] = useState(false);
 
-  const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === questions.length - 1;
 
   const handleAnswer = (q: EnhanceCoverageQuestion, value: "yes" | "no") => {
@@ -57,19 +57,23 @@ const EnhanceCoverage: React.FC = () => {
         <AssistantCard
           phase="success"
           messages={introMessages}
+          onMessagesComplete={() => setShowQuestions(true)}
         />
 
-        <QuestionsStack>
-          {currentQuestion && (
-            <YesNoBlock
-              key={currentQuestion.id}
-              questionId={currentQuestion.id}
-              question={currentQuestion.question}
-              value={answers[currentQuestion.id] ?? null}
-              onChange={(value) => handleAnswer(currentQuestion, value)}
-            />
-          )}
-        </QuestionsStack>
+        {showQuestions && (
+          <QuestionsStack>
+            {questions.slice(0, currentIndex + 1).map((q, idx) => (
+              <YesNoBlock
+                key={q.id}
+                questionId={q.id}
+                question={q.question}
+                value={answers[q.id] ?? null}
+                onChange={(value) => handleAnswer(q, value)}
+                disabled={idx < currentIndex}
+              />
+            ))}
+          </QuestionsStack>
+        )}
       </ContentContainer>
     </PageBoxLayout>
   );

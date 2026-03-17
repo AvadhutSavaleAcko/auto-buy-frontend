@@ -24,6 +24,8 @@ export interface YesNoBlockProps {
   avatarSrc?: string;
   /** Optional id for the question (for aria) */
   questionId?: string;
+  /** When true, buttons are display-only (answered question) */
+  disabled?: boolean;
 }
 
 const DEFAULT_AVATAR = "/images/Avatar.svg";
@@ -34,6 +36,7 @@ const YesNoBlock: FC<YesNoBlockProps> = ({
   onChange,
   avatarSrc = DEFAULT_AVATAR,
   questionId,
+  disabled = false,
 }) => {
   return (
     <Block role="group" aria-labelledby={questionId}>
@@ -49,7 +52,8 @@ const YesNoBlock: FC<YesNoBlockProps> = ({
         <YesButton
           type="button"
           $selected={value === "yes"}
-          onClick={() => onChange("yes")}
+          $disabled={disabled}
+          onClick={() => !disabled && onChange("yes")}
           aria-pressed={value === "yes"}
           aria-label="Yes"
         >
@@ -58,7 +62,8 @@ const YesNoBlock: FC<YesNoBlockProps> = ({
         <NoButton
           type="button"
           $selected={value === "no"}
-          onClick={() => onChange("no")}
+          $disabled={disabled}
+          onClick={() => !disabled && onChange("no")}
           aria-pressed={value === "no"}
           aria-label="No"
         >

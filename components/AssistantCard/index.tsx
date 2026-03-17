@@ -54,6 +54,8 @@ export interface AssistantCardProps {
    * When omitted, default vehicle-details success messages (with "tap here" link) are used.
    */
   messages?: string[];
+  /** Called when all messages have finished displaying (typewriter complete on last message). */
+  onMessagesComplete?: () => void;
 }
 
 function parseBold(text: string): React.ReactNode {
@@ -119,6 +121,7 @@ const AssistantCard: React.FC<AssistantCardProps> = ({
   phase: controlledPhase,
   onBuyingForSomeoneClick,
   messages: customMessages,
+  onMessagesComplete,
 }) => {
   const [showFollowUp, setShowFollowUp] = useState(false);
   const [successStep, setSuccessStep] = useState(0);
@@ -161,6 +164,7 @@ const AssistantCard: React.FC<AssistantCardProps> = ({
       : "initial";
 
   const prevPhaseRef = useRef<AssistantCardPhase | null>(null);
+  const completedRef = useRef(false);
   useEffect(() => {
     if (effectivePhase === "success" && prevPhaseRef.current !== "success") {
       const id = setTimeout(() => {
@@ -178,7 +182,13 @@ const AssistantCard: React.FC<AssistantCardProps> = ({
     const plain = successPlain[successStep];
     const targetLen = plain.length;
     if (typewriterLen >= targetLen) {
-      if (successStep >= successCount - 1) return;
+      if (successStep >= successCount - 1) {
+        if (!completedRef.current) {
+          completedRef.current = true;
+          onMessagesComplete?.();
+        }
+        return;
+      }
       const t = setTimeout(() => {
         setSuccessStep((s) => s + 1);
         setTypewriterLen(0);
@@ -187,7 +197,7 @@ const AssistantCard: React.FC<AssistantCardProps> = ({
     }
     const t = setTimeout(() => setTypewriterLen((n) => n + 1), TYPEWRITER_MS_PER_CHAR);
     return () => clearTimeout(t);
-  }, [effectivePhase, successStep, typewriterLen, successPlain, successCount]);
+  }, [effectivePhase, successStep, typewriterLen, successPlain, successCount, onMessagesComplete]);
 
   if (effectivePhase === "success") {
     const renderBubble = (stepIndex: number) => {

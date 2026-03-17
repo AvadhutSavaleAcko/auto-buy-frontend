@@ -61,6 +61,7 @@ export const ButtonsRow = styled.div`
 
 interface ButtonProps {
   $selected?: boolean;
+  $disabled?: boolean;
 }
 
 export const YesButton = styled.button<ButtonProps>`
@@ -72,7 +73,8 @@ export const YesButton = styled.button<ButtonProps>`
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
-  cursor: pointer;
+  cursor: ${(p) => (p.$disabled ? "default" : "pointer")};
+  pointer-events: ${(p) => (p.$disabled ? "none" : "auto")};
   transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
   border: ${(p) => (p.$selected ? "none" : "1px solid #e2e8f0")};
   background: ${(p) => (p.$selected ? "#0fa357" : "#ffffff")};
@@ -93,7 +95,8 @@ export const NoButton = styled.button<ButtonProps>`
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
-  cursor: pointer;
+  cursor: ${(p) => (p.$disabled ? "default" : "pointer")};
+  pointer-events: ${(p) => (p.$disabled ? "none" : "auto")};
   transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
   border: ${(p) => (p.$selected ? "none" : "1px solid #e2e8f0")};
   background: ${(p) => (p.$selected ? "#0fa357" : "#ffffff")};
