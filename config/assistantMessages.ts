@@ -17,6 +17,55 @@ export const USER_DETAILS_PAGE_MESSAGES: string[] = [
   "I just need a few more details to get the right plans for you",
 ];
 
+/** Params for IDV selection page messages (non-hardcoded values). */
+export interface IdvSelectionMessageParams {
+  /** Resale value range min in lakhs (e.g. 15) */
+  resaleMin: number;
+  /** Resale value range max in lakhs (e.g. 18) */
+  resaleMax: number;
+  /** Initial/set IDV in lakhs (e.g. 17) */
+  initialIdv: number;
+  /** Recommended increase in lakhs (e.g. 1). Optional – omits recommendation if not set. */
+  recommendedIncrease?: number;
+  /** Cost in ₹ for the recommended increase (e.g. 200). Optional. */
+  costForIncrease?: number;
+}
+
+/** Returns sequential messages for the IDV selection page using provided values. */
+export function getIdvSelectionMessages(params: IdvSelectionMessageParams): string[] {
+  const {
+    resaleMin,
+    resaleMax,
+    initialIdv,
+    recommendedIncrease,
+    costForIncrease,
+  } = params;
+
+  const resaleRange = `₹${resaleMin}-${resaleMax} lakh`;
+  const initialIdvText = `₹${initialIdv} lakh`;
+
+  const messages: string[] = [
+    `Your car's current resale value is between ${resaleRange}.`,
+    `Earlier, we set your car's insured value (IDV) at ${initialIdvText}.`,
+  ];
+
+  if (
+    recommendedIncrease != null &&
+    recommendedIncrease > 0 &&
+    costForIncrease != null
+  ) {
+    messages.push(
+      `We recommend you increase your IDV by ₹${recommendedIncrease} lakh for just ₹${costForIncrease.toLocaleString("en-IN")}. This will cover the current value of your car.`
+    );
+  } else if (recommendedIncrease != null && recommendedIncrease > 0) {
+    messages.push(
+      `We recommend you increase your IDV by ₹${recommendedIncrease} lakh. This will cover the current value of your car.`
+    );
+  }
+
+  return messages;
+}
+
 /** Sequential messages shown on the idv-info page (IDV explanation). */
 export const IDV_INFO_PAGE_MESSAGES: string[] = [
   "Before I show you the plans, let's look at your car's insured value (IDV). IDV is your car's current value. It's the maximum amount we will pay you if your car is stolen or damaged beyond repair.",
