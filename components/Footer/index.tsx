@@ -3,12 +3,14 @@ import {
   FooterWrapper,
   FooterRow,
   FooterLeftLabel,
+  FooterStack,
   PremiumSection,
   PremiumLabel,
   PremiumAmount,
   PremiumAmountRow,
   PremiumGst,
   PrimaryButton,
+  SecondaryLink,
 } from "./styles";
 
 export interface FooterProps {
@@ -24,6 +26,10 @@ export interface FooterProps {
   premiumAmount?: string;
   /** GST text (e.g. "+18% GST"); use with premiumAmount for new layout */
   gstText?: string;
+  /** Optional secondary CTA label (e.g. "Compare plans"); renders as link below primary button */
+  secondaryLabel?: string;
+  /** Called when secondary CTA is clicked */
+  onSecondaryClick?: () => void;
   /** Optional className */
   className?: string;
   /** Optional aria-label for the button */
@@ -37,22 +43,37 @@ const Footer: React.FC<FooterProps> = ({
   leftLabel,
   premiumAmount,
   gstText,
+  secondaryLabel,
+  onSecondaryClick,
   className,
   ariaLabel,
 }) => {
   const hasPremiumLayout = Boolean(premiumAmount);
   const hasLeftContent = hasPremiumLayout || Boolean(leftLabel);
+  const hasSecondary = Boolean(secondaryLabel && onSecondaryClick);
 
   const content = (
-    <PrimaryButton
-      type="button"
-      $compact={hasLeftContent}
-      onClick={onPrimaryClick}
-      disabled={disabled}
-      aria-label={ariaLabel ?? label}
-    >
-      {label}
-    </PrimaryButton>
+    <>
+      <PrimaryButton
+        type="button"
+        $compact={hasLeftContent && !hasSecondary}
+        $inStack={hasSecondary}
+        onClick={onPrimaryClick}
+        disabled={disabled}
+        aria-label={ariaLabel ?? label}
+      >
+        {label}
+      </PrimaryButton>
+      {hasSecondary && (
+        <SecondaryLink
+          type="button"
+          onClick={onSecondaryClick}
+          aria-label={secondaryLabel}
+        >
+          {secondaryLabel}
+        </SecondaryLink>
+      )}
+    </>
   );
 
   const leftContent = hasPremiumLayout ? (
@@ -72,8 +93,10 @@ const Footer: React.FC<FooterProps> = ({
       {leftContent ? (
         <FooterRow>
           {leftContent}
-          {content}
+          {hasSecondary ? <FooterStack>{content}</FooterStack> : content}
         </FooterRow>
+      ) : hasSecondary ? (
+        <FooterStack>{content}</FooterStack>
       ) : (
         content
       )}

@@ -16,8 +16,7 @@ export const ProposalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  padding: 0;
-  padding-bottom: 88px;
+  padding-bottom: 320px;
   box-sizing: border-box;
 `;
 
@@ -29,6 +28,20 @@ export const TapToChoose = styled.p`
   line-height: 20px;
   color: #5b5675;
   text-align: center;
+  margin-bottom: 10px;
+`;
+
+/** Fixed at bottom above footer – assistant messages do not affect position */
+export const PlanCardsSection = styled.div`
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 400px;
+  padding: 0 24px;
+  box-sizing: border-box;
+  z-index: 5;
 `;
 
 export const PlanList = styled.div`

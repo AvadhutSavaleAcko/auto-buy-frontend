@@ -1,15 +1,30 @@
 import React from "react";
-import { Card, Content, Title, Description, DescriptionBold, Price } from "./styles";
+import {
+  Card,
+  CardInner,
+  RecommendedTag,
+  Content,
+  Title,
+  Description,
+  DescriptionBold,
+  PriceColumn,
+  PricePrefix,
+  Price,
+} from "./styles";
 
 export interface PlanCardProps {
   /** Plan name (e.g. "Third-party Plan") */
   title: string;
   /** Short description; use **text** for bold (e.g. coverage summary) */
   description: string;
-  /** Display price (e.g. "₹3,500" or "starts from ₹7,000") */
+  /** Display price (e.g. "₹3,500") */
   price: string;
+  /** Optional prefix shown above price (e.g. "starts from") */
+  pricePrefix?: string;
   /** Whether this plan is currently selected */
   selected?: boolean;
+  /** Show "Recommended" tag */
+  recommended?: boolean;
   /** Called when the card is clicked to select/deselect */
   onClick?: () => void;
   /** Optional className */
@@ -40,7 +55,9 @@ const PlanCard: React.FC<PlanCardProps> = ({
   title,
   description,
   price,
+  pricePrefix,
   selected = false,
+  recommended = false,
   onClick,
   className,
   ariaLabel,
@@ -61,11 +78,17 @@ const PlanCard: React.FC<PlanCardProps> = ({
       aria-pressed={selected}
       aria-label={ariaLabel ?? `${title} – ${price}`}
     >
-      <Content>
-        <Title>{title}</Title>
-        <Description>{parseDescriptionBold(description)}</Description>
-      </Content>
-      <Price>{price}</Price>
+      {recommended && <RecommendedTag>Recommended</RecommendedTag>}
+      <CardInner $hasRecommended={recommended}>
+        <Content>
+          <Title>{title}</Title>
+          <Description>{parseDescriptionBold(description)}</Description>
+        </Content>
+        <PriceColumn>
+          {pricePrefix && <PricePrefix>{pricePrefix}</PricePrefix>}
+          <Price>{price}</Price>
+        </PriceColumn>
+      </CardInner>
     </Card>
   );
 };

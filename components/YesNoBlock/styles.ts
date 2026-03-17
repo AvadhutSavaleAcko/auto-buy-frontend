@@ -45,9 +45,9 @@ export const QuestionBubble = styled.div`
 export const QuestionText = styled.p`
   margin: 0;
   font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 20px;
   color: #121212;
 `;
 
@@ -75,8 +75,7 @@ export const YesNoButton = styled.button<ButtonProps>`
   line-height: 20px;
   cursor: ${(p) => (p.$disabled ? "default" : "pointer")};
   pointer-events: ${(p) => (p.$disabled ? "none" : "auto")};
-  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
-  border: ${(p) => (p.$selected ? "none" : "1px solid #e2e8f0")};
+  border: ${(p) => (p.$selected ? "none" : "none")};
   background: ${(p) => (p.$selected ? "#0FA457" : "linear-gradient(122deg, #FDFEFF 0%, #F4F1FC 100%)")};
   color: ${(p) => (p.$selected ? "#ffffff" : "#36354c")};
 

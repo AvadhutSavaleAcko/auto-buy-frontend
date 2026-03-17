@@ -82,7 +82,7 @@ export const OkayButton = styled.button`
   line-height: 2;
   letter-spacing: 0.00625em;
   color: #fff;
-  background: #0fa457;
+  background: #000;
   cursor: pointer;
   transition: opacity 0.2s ease;
 

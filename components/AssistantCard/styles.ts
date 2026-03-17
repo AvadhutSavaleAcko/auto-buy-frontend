@@ -36,9 +36,9 @@ export const MessageText = styled.p`
   margin: 0;
   font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, "Segoe UI",
     system-ui, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 20px;
   color: #121212;
   letter-spacing: 0;
 

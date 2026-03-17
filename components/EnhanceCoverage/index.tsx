@@ -34,8 +34,11 @@ const EnhanceCoverage: React.FC = () => {
 
   const isLastQuestion = currentIndex === questions.length - 1;
 
-  const handleAnswer = (q: EnhanceCoverageQuestion, value: "yes" | "no") => {
+  const handleAnswer = (q: EnhanceCoverageQuestion, value: "yes" | "no", questionIndex: number) => {
     setAnswers((prev) => ({ ...prev, [q.id]: value }));
+
+    // Only advance or navigate when answering the current question (not when editing a previous one)
+    if (questionIndex !== currentIndex) return;
 
     if (isLastQuestion) {
       router.push("/fresh-car/addon-selection");
@@ -68,8 +71,7 @@ const EnhanceCoverage: React.FC = () => {
                 questionId={q.id}
                 question={q.question}
                 value={answers[q.id] ?? null}
-                onChange={(value) => handleAnswer(q, value)}
-                disabled={idx < currentIndex}
+                onChange={(value) => handleAnswer(q, value, idx)}
               />
             ))}
           </QuestionsStack>

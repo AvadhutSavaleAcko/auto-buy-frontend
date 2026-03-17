@@ -83,11 +83,46 @@ export const PremiumAmountRow = styled.span`
   gap: 4px;
 `;
 
+/** Stack for primary button + optional secondary link. */
+export const FooterStack = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  flex: 1;
+  min-width: 0;
+  margin-top: 12px;
+`;
+
+/** Secondary CTA – text link below primary button (e.g. "Compare plans"). */
+export const SecondaryLink = styled.button`
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #2563eb;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:active {
+    opacity: 0.7;
+  }
+`;
+
 interface PrimaryButtonProps {
   $compact?: boolean;
+  $inStack?: boolean;
 }
 
-/** Primary CTA – full width when alone, or flex when in row; green, 48px height. */
+/** Primary CTA – full width when alone, or flex when in row; black, 48px height. */
 export const PrimaryButton = styled.button<PrimaryButtonProps>`
   display: flex;
   align-items: center;
@@ -96,7 +131,8 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
   min-width: ${(p: PrimaryButtonProps) => (p.$compact ? "120px" : "none")};
   height: 48px;
   padding: 10px 16px;
-  margin-top: ${(p: PrimaryButtonProps) => (p.$compact ? "0" : "12px")};
+  margin-top: ${(p: PrimaryButtonProps) =>
+    p.$inStack ? "0" : p.$compact ? "0" : "12px"};
   border: none;
   border-radius: 12px;
   font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -107,7 +143,7 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
   transition: opacity 0.2s ease, transform 0.1s ease, background-color 0.2s ease;
   box-sizing: border-box;
   &:not(:disabled) {
-    background-color: #0fa357;
+    background-color: #000;
     color: #fff;
   }
 
@@ -122,7 +158,7 @@ export const PrimaryButton = styled.button<PrimaryButtonProps>`
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    background-color: #cee1db;
+    background-color: #9ca3af;
     color: #fff;
   }
 `;

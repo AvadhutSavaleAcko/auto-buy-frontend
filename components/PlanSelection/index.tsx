@@ -5,6 +5,7 @@ import {
   ErrorMessage,
   PageWrapper,
   TapToChoose,
+  PlanCardsSection,
   PlanList,
 } from "./styles";
 import PageBoxLayout from "../PageBoxLayout";
@@ -12,6 +13,7 @@ import FlowHeader from "../FlowHeader";
 import AssistantCard from "../AssistantCard";
 import PlanCard from "../plan_card";
 import Footer from "../Footer";
+import CoverageComparisonModal from "../CoverageComparisonModal";
 import { PLAN_SELECTION_PAGE_MESSAGES } from "../../config/assistantMessages";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
@@ -37,7 +39,8 @@ const PlanSelection = () => {
     (state) => state.proposal
   );
 
-  const [selectedPlan, setSelectedPlan] = useState<PlanId>(null);
+  const [selectedPlan, setSelectedPlan] = useState<PlanId>("comprehensive");
+  const [showCompareModal, setShowCompareModal] = useState(false);
   
   useEffect(() => {
     if (!proposalEkey?.trim()) return;
@@ -160,11 +163,12 @@ const PlanSelection = () => {
           phase="success"
           messages={PLAN_SELECTION_PAGE_MESSAGES}
         />
-        <TapToChoose>Tap to choose</TapToChoose>
-        <PlanList>
+        <PlanCardsSection>
+          <TapToChoose>Tap to choose</TapToChoose>
+          <PlanList>
           <PlanCard
             title="Third-party Plan"
-            description="Pays for damage you cause to others. **Does not pay for damage to your vehicle.**"
+            description="Pays for damage you cause to others. **Does not pay** for damage to your vehicle."
             price="₹3,500"
             selected={selectedPlan === "third-party"}
             onClick={() =>
@@ -176,20 +180,29 @@ const PlanSelection = () => {
           <PlanCard
             title="Comprehensive Plans"
             description="Pays for accidental damage to your vehicle and for damage you cause to others."
-            price="starts from ₹7,000"
+            price="₹7,000"
+            pricePrefix="starts from"
             selected={selectedPlan === "comprehensive"}
+            recommended
             onClick={() =>
               setSelectedPlan((prev) =>
                 prev === "comprehensive" ? null : "comprehensive"
               )
             }
           />
-        </PlanList>
+          </PlanList>
+        </PlanCardsSection>
       </ProposalContainer>
       <Footer
         label="Continue"
         onPrimaryClick={handleContinue}
         disabled={selectedPlan === null}
+        secondaryLabel="Compare plans"
+        onSecondaryClick={() => setShowCompareModal(true)}
+      />
+      <CoverageComparisonModal
+        show={showCompareModal}
+        onClose={() => setShowCompareModal(false)}
       />
     </PageBoxLayout>
   );
