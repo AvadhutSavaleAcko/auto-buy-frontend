@@ -88,8 +88,7 @@ export const ADDON_SELECTION_PAGE_MESSAGES: string[] = [
 
 /** Sequential messages shown on the coverage-selection page (Build your own). */
 export const COVERAGE_SELECTION_PAGE_MESSAGES: string[] = [
-  "Choose the coverages that matter most to you.",
-  "These are calculated based on your car's age and usage. You can add or remove them anytime.",
+  "Boost your plan with additional coverages"
 ];
 
 /** Sequential messages shown on the deductible-selection page. */
