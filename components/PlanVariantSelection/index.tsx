@@ -32,17 +32,24 @@ const PLATINUM_GARAGES: GarageItem[] = [
 
 const PlanVariantSelection = () => {
   const router = useRouter();
+  const proposalEkey = router.query.proposal_ekey as string | undefined;
+  const registrationNumber = router.query.registration_number as
+    | string
+    | undefined;
   const [selection, setSelection] = useState<PlanVariant>(null);
 
   const handleBack = () => router.back();
   const handleSummary = () => {};
 
   const handleContinue = () => {
-    if (selection === "basic") {
-      router.push("/fresh-car/addon-selection");
-    } else if (selection === "platinum") {
-      router.push("/fresh-car/addon-selection");
-    }
+    const query: Record<string, string> = {};
+    if (proposalEkey?.trim()) query.proposal_ekey = proposalEkey.trim();
+    if (registrationNumber?.trim())
+      query.registration_number = registrationNumber.trim();
+    router.push({
+      pathname: "/fresh-car/platinum-lite-upgrade",
+      query: Object.keys(query).length > 0 ? query : undefined,
+    });
   };
 
   const handleViewMoreGarages = () => {
@@ -51,8 +58,6 @@ const PlanVariantSelection = () => {
 
   const handleSelectBasic = () => setSelection("basic");
   const handleSelectPlatinum = () => setSelection("platinum");
-
-  const premiumAmount = selection === "basic" ? "₹9,000" : selection === "platinum" ? "₹10,200" : undefined;
 
   return (
     <PageBoxLayout
@@ -94,8 +99,6 @@ const PlanVariantSelection = () => {
         </CardsSection>
       </ContentContainer>
       <Footer
-        premiumAmount={premiumAmount}
-        gstText="+18% GST"
         label="Continue"
         onPrimaryClick={handleContinue}
         disabled={selection === null}

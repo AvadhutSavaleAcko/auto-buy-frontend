@@ -82,8 +82,14 @@ const PlanSelection = () => {
   const handleSummary = () => {};
   
   const handleContinue = () => {
-    // TODO: navigate to next step when plan selection flow is defined
-    router.back();
+    const query: Record<string, string> = {};
+    if (proposalEkey?.trim()) query.proposal_ekey = proposalEkey.trim();
+    if (registrationNumber?.trim())
+      query.registration_number = registrationNumber.trim();
+    router.push({
+      pathname: "/fresh-car/plan-info",
+      query: Object.keys(query).length > 0 ? query : undefined,
+    });
   };
   
   if (!router.isReady) {

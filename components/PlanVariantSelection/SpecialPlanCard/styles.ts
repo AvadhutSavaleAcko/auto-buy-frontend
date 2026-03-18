@@ -18,6 +18,7 @@ export const SpecialPlanCardRoot = styled.div<SpecialPlanCardRootProps>`
   &:hover {
     border-color: ${(p: SpecialPlanCardRootProps) => (p.$selected ? "#0FA457" : "#c4c4d4")};
   }
+  margin-top: 20px;
 `;
 
 export const Badge = styled.span`
@@ -26,13 +27,21 @@ export const Badge = styled.span`
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 4px 12px;
-  border-radius: 999px;
-  background: rgba(69, 25, 153, 0.12);
+  border-radius: 20px;
+  border: 2px solid var(--background-white-n-0, #fff);
+  background: var(--background-secondary-n-50, #f8f7fc);
+`;
+
+export const BadgeText = styled.span`
+  background: linear-gradient(269deg, #f16262 -10.35%, #743ddc 106.34%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 12px;
+  font-style: normal;
   font-weight: 600;
-  line-height: 1.33;
-  color: #451999;
+  line-height: 16px;
 `;
 
 export const Content = styled.div`
@@ -124,16 +133,9 @@ export const DashcamOffer = styled.div`
   gap: 12px;
   padding: 4px 8px;
   border-radius: 12px;
-  border: 1px solid;
-  border-image: linear-gradient(
-      134deg,
-      rgba(245, 183, 255, 1) 2%,
-      rgba(253, 199, 231, 1) 31%,
-      rgba(252, 226, 177, 1) 71%,
-      rgba(255, 171, 213, 1) 100%
-    )
-    1;
-  background: #ffffff;
+  border: 1px solid #F5B7FF;
+  background: linear-gradient(276deg, rgba(255, 255, 255, 0.80) 0.25%, rgba(255, 255, 255, 0.80) 99.71%);
+  backdrop-filter: blur(10px);
 `;
 
 export const DashcamIcon = styled.div`

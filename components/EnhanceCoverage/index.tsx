@@ -26,6 +26,10 @@ const DEFAULT_CONFIG = {
 
 const EnhanceCoverage: React.FC = () => {
   const router = useRouter();
+  const proposalEkey = router.query.proposal_ekey as string | undefined;
+  const registrationNumber = router.query.registration_number as
+    | string
+    | undefined;
   const { introMessages, questions } = ENHANCE_COVERAGE_CONFIG ?? DEFAULT_CONFIG;
 
   const [answers, setAnswers] = useState<AnswerMap>({});
@@ -41,7 +45,14 @@ const EnhanceCoverage: React.FC = () => {
     if (questionIndex !== currentIndex) return;
 
     if (isLastQuestion) {
-      router.push("/fresh-car/addon-selection");
+      const query: Record<string, string> = {};
+      if (proposalEkey?.trim()) query.proposal_ekey = proposalEkey.trim();
+      if (registrationNumber?.trim())
+        query.registration_number = registrationNumber.trim();
+      router.push({
+        pathname: "/fresh-car/addon-selection",
+        query: Object.keys(query).length > 0 ? query : undefined,
+      });
     } else {
       setCurrentIndex((i) => i + 1);
     }

@@ -133,3 +133,18 @@ export const PROPOSAL_SUMMARY_PAGE_MESSAGES: string[] = [
   "Here's a summary of your car insurance proposal.",
   "Please review your details before we proceed to payment.",
 ];
+
+/** Sequential messages shown on the plan-info page (Basic vs Platinum intro before plan variant selection). */
+export const PLAN_INFO_PAGE_MESSAGES: string[] = [
+  "Got it! This plan has two options: Basic and **Platinum**. You can choose one in the next step.",
+  "I suggest choosing Platinum. It gives you an end-to-end managed claims experience – including doorstep pickup and drop, repairs at top-rated garages, a dedicated claims manager, and a 1-year warranty on repairs.",
+  "It also **includes a FREE dashcam!**",
+];
+
+/** Sequential messages shown on the platinum-lite-upgrade page (FREE upgrade to Platinum Lite). */
+export const PLATINUM_LITE_UPGRADE_PAGE_MESSAGES: string[] = [
+  "Good news! You've been upgraded to Platinum Lite for FREE!",
+  "Platinum Lite gives you a more convenient claims experience. **You will get:** All benefits of Standard, repairs at Platinum-certified garages, doorstep pickup and drop, 1-year warranty on all repairs, and a dedicated claims manager.",
+  "Once your policy is active, we'll share the details of your Claims Manager.",
+  "If you're ever in an accident, just call them. They'll manage everything.",
+];

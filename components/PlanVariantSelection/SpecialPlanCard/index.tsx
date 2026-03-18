@@ -2,6 +2,7 @@ import React from "react";
 import {
   SpecialPlanCardRoot,
   Badge,
+  BadgeText,
   Content,
   MainContent,
   HeaderRow,
@@ -84,7 +85,11 @@ const SpecialPlanCard: React.FC<SpecialPlanCardProps> = ({
       aria-pressed={selected}
       aria-label={ariaLabel ?? `${title} – ${price}`}
     >
-      {badge && <Badge>{badge}</Badge>}
+      {badge && (
+        <Badge>
+          <BadgeText>{badge}</BadgeText>
+        </Badge>
+      )}
       <Content>
         <MainContent>
           <HeaderRow>
