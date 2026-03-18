@@ -10,15 +10,35 @@ export const PageWrapper = styled.div`
   background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
 `;
 
+
 export const ContentContainer = styled.div`
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+`;
+
+/** Fixed at bottom, above footer. Cards stay visible and do not scroll up. */
+export const CardsFixedSection = styled.div`
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
+  max-width: 400px;
+  padding: 0 24px 88px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 24px;
-  padding: 0;
-  padding-bottom: 88px;
-  box-sizing: border-box;
+  gap: 12px;
+  z-index: 5;
+  pointer-events: none;
+
+  & > * {
+    pointer-events: auto;
+  }
 `;
 
 export const PackSection = styled.div`

@@ -14,38 +14,31 @@ export const OptionsRow = styled.div`
   display: flex;
   flex-direction: row;
   gap: 12px;
+  margin-left: 120px;
 `;
 
 interface OptionButtonProps {
   $selected?: boolean;
+  $disabled?: boolean;
 }
 
 export const OptionButton = styled.button<OptionButtonProps>`
-  flex: 1;
-  height: 56px;
+  min-width: 98px;
+  height: 40px;
+  padding: 0 20px;
   border-radius: 12px;
-  font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont,
-    sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-  cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease,
-    box-shadow 0.15s ease;
-  border: ${(p: OptionButtonProps) =>
-    p.$selected ? "1.5px solid #0fa357" : "1px solid #e2e8f0"};
-  background: ${(p: OptionButtonProps) =>
-    p.$selected
-      ? "linear-gradient(135deg, rgba(235, 251, 238, 1) 0%, rgba(253, 254, 255, 1) 100%)"
-      : "#ffffff"};
-  color: ${(p: OptionButtonProps) => (p.$selected ? "#0fa357" : "#36354c")};
-  box-shadow: ${(p: OptionButtonProps) =>
-    p.$selected
-      ? "0 0 0 1px rgba(15, 164, 87, 0.25)"
-      : "0 1px 3px 0 rgba(54, 53, 76, 0.08)"};
+  font-family: "Euclid Circular B", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  cursor: ${(p: OptionButtonProps) => (p.$disabled ? "default" : "pointer")};
+  pointer-events: ${(p: OptionButtonProps) => (p.$disabled ? "none" : "auto")};
+  border: none;
+  background: ${(p: OptionButtonProps) => (p.$selected ? "#000000" : "linear-gradient(122deg, #FDFEFF 0%, #F4F1FC 100%)")};
+  color: ${(p: OptionButtonProps) => (p.$selected ? "#ffffff" : "#36354c")};
+  box-shadow: 0 6px 12px -2px rgba(54, 53, 76, 0.20);
 
   &:hover {
-    border-color: #0fa357;
-    background: rgba(15, 163, 87, 0.04);
+    background: ${(p: OptionButtonProps) => (p.$selected ? "#000000" : "rgba(15, 163, 87, 0.04)")};
   }
 `;

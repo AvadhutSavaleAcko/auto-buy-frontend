@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import {
   ContentContainer,
+  CardsFixedSection,
   PackSection,
   BuildYourOwnCard,
   BuildYourOwnTitle,
@@ -58,6 +59,8 @@ const AddonSelection = () => {
           phase="success"
           messages={ADDON_SELECTION_PAGE_MESSAGES}
         />
+      </ContentContainer>
+      <CardsFixedSection>
         <PackSection>
           <TotalProtectionPackCard
             title="Total Protection Pack"
@@ -89,7 +92,7 @@ const AddonSelection = () => {
             Pick the additional coverages you want
           </BuildYourOwnSubtitle>
         </BuildYourOwnCard>
-      </ContentContainer>
+      </CardsFixedSection>
       <Footer
         premiumAmount="₹10,200"
         gstText="+18% GST"

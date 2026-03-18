@@ -76,12 +76,11 @@ export const YesNoButton = styled.button<ButtonProps>`
   cursor: ${(p) => (p.$disabled ? "default" : "pointer")};
   pointer-events: ${(p) => (p.$disabled ? "none" : "auto")};
   border: ${(p) => (p.$selected ? "none" : "none")};
-  background: ${(p) => (p.$selected ? "#0FA457" : "linear-gradient(122deg, #FDFEFF 0%, #F4F1FC 100%)")};
+  background: ${(p) => (p.$selected ? "#000000" : "linear-gradient(122deg, #FDFEFF 0%, #F4F1FC 100%)")};
   color: ${(p) => (p.$selected ? "#ffffff" : "#36354c")};
 
   &:hover {
-    border-color: #0fa357;
-    background: ${(p) => (p.$selected ? "#0fa357" : "rgba(15, 163, 87, 0.04)")};
+    background: ${(p) => (p.$selected ? "#000000" : "rgba(15, 163, 87, 0.04)")};
   }
   box-shadow: 0 6px 12px -2px rgba(54, 53, 76, 0.20);
 `;
