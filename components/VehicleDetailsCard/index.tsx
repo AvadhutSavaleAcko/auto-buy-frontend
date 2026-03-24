@@ -69,7 +69,7 @@ const VehicleDetailsCard: React.FC<VehicleDetailsCardProps> = ({
       <HeaderRow>
         {carImageSrc && (
           <CarImageWrap>
-            <CarImage src={'/images/car.png'} alt="" aria-hidden />
+            <CarImage src={carImageSrc} alt="" aria-hidden />
           </CarImageWrap>
         )}
         <HeaderText>

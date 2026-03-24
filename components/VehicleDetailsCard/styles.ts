@@ -12,7 +12,6 @@ export const Card = styled.div`
   );
   overflow: hidden;
   box-sizing: border-box;
-  margin-top: 100px;
 `;
 
 export const HeaderRow = styled.div`

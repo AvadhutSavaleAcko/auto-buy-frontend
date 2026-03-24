@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Container, ErrorMessage, PageWrapper } from "./styles";
+import { Container, ErrorMessage, PageWrapper, BottomSection } from "./styles";
 import PageBoxLayout from "../PageBoxLayout";
 import FlowHeader from "../FlowHeader";
 import AssistantCard from "../AssistantCard";
@@ -193,34 +193,36 @@ const VehicleDetails = () => {
           phase="success"
           onBuyingForSomeoneClick={() => {}}
         />
-        <VehicleDetailsCard
-          carImageSrc={vehicle.logoUrl ?? "/images/car.png"}
-          registrationNumber={
-            vehicle.registrationNumber ?? registrationNumber
-          }
-          carDescription={carDescription}
-          details={[
-            {
-              label: "Fuel type",
-              value: vehicle.fuelTypeDisplay ?? vehicle.fuelType ?? "—",
-            },
-            {
-              label: "RTO",
-              value: vehicle.rtoCode ?? "—",
-            },
-            {
-              label: "Previous NCB",
-              value:
-                vehicle.previousNcb != null
-                  ? `${vehicle.previousNcb}%`
-                  : "—",
-            },
-          ]}
-          primaryCtaLabel="Yes, looks right"
-          onPrimaryCta={handleYesLooksRight}
-          secondaryCtaLabel="I want to edit details"
-          onSecondaryCta={() => {}}
-        />
+        <BottomSection>
+          <VehicleDetailsCard
+            carImageSrc={vehicle.logoUrl ?? "/images/car.png"}
+            registrationNumber={
+              vehicle.registrationNumber ?? registrationNumber
+            }
+            carDescription={carDescription}
+            details={[
+              {
+                label: "Fuel type",
+                value: vehicle.fuelTypeDisplay ?? vehicle.fuelType ?? "—",
+              },
+              {
+                label: "RTO",
+                value: vehicle.rtoCode ?? "—",
+              },
+              {
+                label: "Previous NCB",
+                value:
+                  vehicle.previousNcb != null
+                    ? `${vehicle.previousNcb}%`
+                    : "—",
+              },
+            ]}
+            primaryCtaLabel="Yes, looks right"
+            onPrimaryCta={handleYesLooksRight}
+            secondaryCtaLabel="I want to edit details"
+            onSecondaryCta={() => {}}
+          />
+        </BottomSection>
       </Container>
     </PageBoxLayout>
   );

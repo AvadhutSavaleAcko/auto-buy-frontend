@@ -9,6 +9,7 @@ export const Outer = styled.div`
 
 export const Box = styled.div`
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: #fff;
@@ -17,7 +18,6 @@ export const Box = styled.div`
   @media (min-width: 768px) {
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
     max-width: 400px;
-    min-height: 100vh;
   }
 `;
 

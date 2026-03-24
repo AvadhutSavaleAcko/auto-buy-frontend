@@ -19,6 +19,12 @@ export const Container = styled.div`
   gap: 24px;
   padding: 0;
   box-sizing: border-box;
+  flex: 1;
+`;
+
+export const BottomSection = styled.div`
+  margin-top: auto;
+  width: 100%;
 `;
 
 export const ErrorMessage = styled.p`
