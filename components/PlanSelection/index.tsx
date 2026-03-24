@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import {
   ProposalContainer,
   ErrorMessage,
@@ -23,17 +22,15 @@ import {
 } from "../../store/slices/proposalSlice";
 import { getNextNode } from "../../lib/api/apis";
 import { parseNextNodeResponse } from "../../lib/parsers/proposalParser";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 
 type PlanId = "third-party" | "comprehensive" | null;
 
 const PlanSelection = () => {
-  const router = useRouter();
+  const { navigateNext, router, proposalEkey, registrationNumber } =
+    useFlowNavigation("plan-selection");
   const dispatch = useAppDispatch();
-  const proposalEkey = router.query.proposal_ekey as string | undefined;
-  const registrationNumber = router.query.registration_number as
-    | string
-    | undefined;
 
   const { data: proposalData, loading, error: proposalError } = useAppSelector(
     (state) => state.proposal
@@ -82,14 +79,7 @@ const PlanSelection = () => {
   const handleSummary = () => {};
   
   const handleContinue = () => {
-    const query: Record<string, string> = {};
-    if (proposalEkey?.trim()) query.proposal_ekey = proposalEkey.trim();
-    if (registrationNumber?.trim())
-      query.registration_number = registrationNumber.trim();
-    router.push({
-      pathname: "/fresh-car/plan-info",
-      query: Object.keys(query).length > 0 ? query : undefined,
-    });
+    navigateNext();
   };
   
   if (!router.isReady) {

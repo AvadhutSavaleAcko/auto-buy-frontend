@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import {
   ContentContainer,
   SectionLabel,
@@ -14,6 +13,7 @@ import AssistantCard from "../AssistantCard";
 import CoverageItemCard from "../CoverageItemCard";
 import Footer from "../Footer";
 import { COVERAGE_SELECTION_PAGE_MESSAGES } from "../../config/assistantMessages";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 interface CoverageItem {
   id: string;
@@ -85,7 +85,7 @@ const AVAILABLE_COVERAGES: CoverageItem[] = [
 const BASE_PREMIUM = 10200;
 
 const CoverageSelection: React.FC = () => {
-  const router = useRouter();
+  const { navigateNext, router } = useFlowNavigation("coverage-selection");
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const toggle = (id: string) => {
@@ -104,7 +104,7 @@ const CoverageSelection: React.FC = () => {
   const premiumAmount = `₹${totalPremium.toLocaleString("en-IN")}`;
 
   const handleContinue = () => {
-    router.push("/fresh-car/deductible-selection");
+    navigateNext();
   };
 
   return (

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import { ContentContainer, CardsSection } from "./styles";
 import PageBoxLayout from "../PageBoxLayout";
 import FlowHeader from "../FlowHeader";
@@ -7,6 +6,7 @@ import Footer from "../Footer";
 import BasicPlanCard from "./BasicPlanCard";
 import SpecialPlanCard from "./SpecialPlanCard";
 import type { GarageItem } from "./SpecialPlanCard";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 export type PlanVariant = "basic" | "platinum" | null;
 
@@ -31,25 +31,14 @@ const PLATINUM_GARAGES: GarageItem[] = [
 ];
 
 const PlanVariantSelection = () => {
-  const router = useRouter();
-  const proposalEkey = router.query.proposal_ekey as string | undefined;
-  const registrationNumber = router.query.registration_number as
-    | string
-    | undefined;
+  const { navigateNext, router } = useFlowNavigation("plan-variant-selection");
   const [selection, setSelection] = useState<PlanVariant>(null);
 
   const handleBack = () => router.back();
   const handleSummary = () => {};
 
   const handleContinue = () => {
-    const query: Record<string, string> = {};
-    if (proposalEkey?.trim()) query.proposal_ekey = proposalEkey.trim();
-    if (registrationNumber?.trim())
-      query.registration_number = registrationNumber.trim();
-    router.push({
-      pathname: "/fresh-car/platinum-lite-upgrade",
-      query: Object.keys(query).length > 0 ? query : undefined,
-    });
+    navigateNext();
   };
 
   const handleViewMoreGarages = () => {

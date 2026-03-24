@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { useRouter } from "next/router";
 import {
   ContentContainer,
   MessagesScrollArea,
@@ -11,6 +10,7 @@ import AssistantCard from "../AssistantCard";
 import Footer from "../Footer";
 import IDVSelector from "../IDVSelector";
 import { getIdvSelectionMessages } from "../../config/assistantMessages";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 export interface IdvSelectionConfig {
   resaleMin: number;
@@ -33,7 +33,7 @@ const DEFAULT_CONFIG: IdvSelectionConfig = {
 const IdvSelection: React.FC<{ config?: Partial<IdvSelectionConfig> }> = (
   props
 ) => {
-  const router = useRouter();
+  const { navigateNext, router } = useFlowNavigation("idv-selection");
   const configOverride = props.config;
   const config = useMemo(
     () => ({
@@ -75,7 +75,7 @@ const IdvSelection: React.FC<{ config?: Partial<IdvSelectionConfig> }> = (
   const premiumAmount = `₹${config.basePremium.toLocaleString("en-IN")}`;
 
   const handleContinue = () => {
-    router.push("/fresh-car/deductible-selection");
+    navigateNext();
   };
 
   return (

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import { ContentContainer, QuestionsStack } from "./styles";
 import PageBoxLayout from "../PageBoxLayout";
 import FlowHeader from "../FlowHeader";
@@ -9,6 +8,7 @@ import {
   ENHANCE_COVERAGE_CONFIG,
   type EnhanceCoverageQuestion,
 } from "../../config/assistantMessages";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 type AnswerMap = Record<string, "yes" | "no">;
 
@@ -25,11 +25,7 @@ const DEFAULT_CONFIG = {
 };
 
 const EnhanceCoverage: React.FC = () => {
-  const router = useRouter();
-  const proposalEkey = router.query.proposal_ekey as string | undefined;
-  const registrationNumber = router.query.registration_number as
-    | string
-    | undefined;
+  const { navigateNext, router } = useFlowNavigation("enhance-coverage");
   const { introMessages, questions } = ENHANCE_COVERAGE_CONFIG ?? DEFAULT_CONFIG;
 
   const [answers, setAnswers] = useState<AnswerMap>({});
@@ -45,14 +41,7 @@ const EnhanceCoverage: React.FC = () => {
     if (questionIndex !== currentIndex) return;
 
     if (isLastQuestion) {
-      const query: Record<string, string> = {};
-      if (proposalEkey?.trim()) query.proposal_ekey = proposalEkey.trim();
-      if (registrationNumber?.trim())
-        query.registration_number = registrationNumber.trim();
-      router.push({
-        pathname: "/fresh-car/addon-selection",
-        query: Object.keys(query).length > 0 ? query : undefined,
-      });
+      navigateNext();
     } else {
       setCurrentIndex((i) => i + 1);
     }

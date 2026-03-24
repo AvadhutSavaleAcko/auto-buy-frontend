@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import {
   PageWrapper,
   RegistrationContainer,
@@ -13,9 +12,10 @@ import {
   ErrorMessage,
 } from "./styles";
 import { createProposal } from "../../lib/api/apis";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 const RegistrationNumber = () => {
-  const router = useRouter();
+  const { navigateNext } = useFlowNavigation("registration-number");
   const [regNo, setRegNo] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,11 +29,12 @@ const RegistrationNumber = () => {
     setLoading(true);
     try {
       const proposal = await createProposal(trimmed);
-      const params = new URLSearchParams({
-        proposal_ekey: proposal.ekey,
-        registration_number: trimmed,
+      navigateNext({
+        query: {
+          proposal_ekey: proposal.ekey,
+          registration_number: trimmed,
+        },
       });
-      router.push(`/fresh-car/vehicle-details?${params.toString()}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
       setLoading(false);

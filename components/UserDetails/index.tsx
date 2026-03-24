@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import {
   ProposalContainer,
   FixedBottomCardWrapper,
@@ -13,15 +12,13 @@ import UserDetailsCard from "../UserDetailsCard";
 import { USER_DETAILS_PAGE_MESSAGES } from "../../config/assistantMessages";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setGlobalData } from "../../store/slices/globalDataSlice";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 const UserDetails = () => {
-  const router = useRouter();
+  const { navigateNext, router, proposalEkey, registrationNumber } =
+    useFlowNavigation("user-details");
   const dispatch = useAppDispatch();
   const globalData = useAppSelector((state) => state.globalData);
-  const proposalEkey = router.query.proposal_ekey as string | undefined;
-  const registrationNumber = router.query.registration_number as
-    | string
-    | undefined;
 
   const [phoneNumber, setPhoneNumber] = useState(globalData.phone ?? "");
   const [pinCode, setPinCode] = useState(globalData.pinCode ?? "");
@@ -34,10 +31,7 @@ const UserDetails = () => {
   const handleContinue = () => {
     if (!isValid || !proposalEkey || !registrationNumber) return;
     dispatch(setGlobalData({ phone: phoneNumber, pinCode }));
-    router.push({
-      pathname: "/fresh-car/idv-info",
-      query: { proposal_ekey: proposalEkey, registration_number: registrationNumber },
-    });
+    navigateNext();
   };
 
   if (!router.isReady) {

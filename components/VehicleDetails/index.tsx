@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { Container, ErrorMessage, PageWrapper, BottomSection } from "./styles";
 import PageBoxLayout from "../PageBoxLayout";
 import FlowHeader from "../FlowHeader";
@@ -14,6 +13,7 @@ import {
   setProposalError,
   setProposalLoading,
 } from "../../store/slices/proposalSlice";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 const MESSAGE_DELAY_MS = 2500;
 
@@ -32,13 +32,9 @@ function buildCarDescription(
 }
 
 const VehicleDetails = () => {
-  const router = useRouter();
+  const { navigateNext, router, proposalEkey, registrationNumber } =
+    useFlowNavigation("vehicle-details");
   const dispatch = useAppDispatch();
-
-  const proposalEkey = router.query.proposal_ekey as string | undefined;
-  const registrationNumber = router.query.registration_number as
-    | string
-    | undefined;
 
   const { data: proposalData, loading, error: proposalError } = useAppSelector(
     (state) => state.proposal
@@ -94,13 +90,7 @@ const VehicleDetails = () => {
 
   const handleYesLooksRight = () => {
     if (!proposalEkey || !registrationNumber) return;
-    router.push({
-      pathname: "/fresh-car/user-details",
-      query: {
-        proposal_ekey: proposalEkey,
-        registration_number: registrationNumber,
-      },
-    });
+    navigateNext();
   };
 
   if (!router.isReady) {

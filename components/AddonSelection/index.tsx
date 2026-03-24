@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import {
   ContentContainer,
   CardsFixedSection,
@@ -14,6 +13,7 @@ import AssistantCard from "../AssistantCard";
 import TotalProtectionPackCard from "../TotalProtectionPackCard";
 import Footer from "../Footer";
 import { ADDON_SELECTION_PAGE_MESSAGES } from "../../config/assistantMessages";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 const TOTAL_PROTECTION_FEATURES = [
   "Passenger Cover",
@@ -26,18 +26,14 @@ const TOTAL_PROTECTION_FEATURES = [
 export type AddonChoice = "pack" | "build-your-own";
 
 const AddonSelection = () => {
-  const router = useRouter();
+  const { navigateNext, router } = useFlowNavigation("addon-selection");
   const [selection, setSelection] = useState<AddonChoice | null>(null);
 
   const handleBack = () => router.back();
   const handleSummary = () => {};
 
   const handleContinue = () => {
-    if (selection === "build-your-own") {
-      router.push("/fresh-car/coverage-selection");
-    } else {
-      router.push("/fresh-car/deductible-selection");
-    }
+    navigateNext({ context: { selection: selection ?? "" } });
   };
 
   const handleLearnMore = () => {

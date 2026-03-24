@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useRouter } from "next/router";
 import { ProposalContainer, ErrorMessage, PageWrapper } from "./styles";
 import PageBoxLayout from "../PageBoxLayout";
 import FlowHeader from "../FlowHeader";
@@ -8,13 +7,11 @@ import Footer from "../Footer";
 import { IDV_INFO_PAGE_MESSAGES } from "../../config/assistantMessages";
 import { useAppSelector } from "../../store/hooks";
 import { getNextNode } from "../../lib/api/apis";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 const IdvInfo = () => {
-  const router = useRouter();
-  const proposalEkey = router.query.proposal_ekey as string | undefined;
-  const registrationNumber = router.query.registration_number as
-    | string
-    | undefined;
+  const { navigateNext, router, proposalEkey, registrationNumber } =
+    useFlowNavigation("idv-info");
   const globalData = useAppSelector((state) => state.globalData);
 
   const handleBack = () => router.back();
@@ -38,10 +35,7 @@ const IdvInfo = () => {
 
   const handleOkay = () => {
     if (!proposalEkey || !registrationNumber) return;
-    router.push({
-      pathname: "/fresh-car/plan-selection",
-      query: { proposal_ekey: proposalEkey, registration_number: registrationNumber },
-    });
+    navigateNext();
   };
 
   if (!router.isReady) {

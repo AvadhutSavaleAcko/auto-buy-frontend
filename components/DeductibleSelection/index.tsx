@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import {
   ContentContainer,
   MessagesScrollArea,
@@ -14,6 +13,7 @@ import FlowHeader from "../FlowHeader";
 import AssistantCard from "../AssistantCard";
 import Footer from "../Footer";
 import { DEDUCTIBLE_SELECTION_PAGE_MESSAGES } from "../../config/assistantMessages";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 type DeductibleValue = "0" | "5000" | "8000";
 
@@ -34,11 +34,11 @@ const OPTIONS: DeductibleOption[] = [
 ];
 
 const DeductibleSelection: React.FC = () => {
-  const router = useRouter();
+  const { navigateNext, router } = useFlowNavigation("deductible-selection");
   const [selected, setSelected] = useState<DeductibleValue | null>(null);
 
   const handleContinue = () => {
-    router.push("/fresh-car/yes-no-question");
+    navigateNext();
   };
 
   return (

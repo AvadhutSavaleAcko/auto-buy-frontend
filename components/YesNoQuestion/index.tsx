@@ -1,20 +1,20 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import { ContentContainer, OptionsRow, OptionButton } from "./styles";
 import PageBoxLayout from "../PageBoxLayout";
 import FlowHeader from "../FlowHeader";
 import AssistantCard from "../AssistantCard";
 import Footer from "../Footer";
 import { YES_NO_QUESTION_PAGE_MESSAGES } from "../../config/assistantMessages";
+import { useFlowNavigation } from "../../hooks/useFlowNavigation";
 
 type YesNoChoice = "yes" | "no";
 
 const YesNoQuestion: React.FC = () => {
-  const router = useRouter();
+  const { navigateNext, router } = useFlowNavigation("yes-no-question");
   const [choice, setChoice] = useState<YesNoChoice | null>(null);
 
   const handleContinue = () => {
-    router.push("/fresh-car/checkout-details");
+    navigateNext();
   };
 
   return (

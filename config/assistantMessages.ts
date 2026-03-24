@@ -6,9 +6,7 @@
 
 /** Sequential messages shown on the vehicle-details page (car details + "Yes, looks right"). */
 export const VEHICLE_DETAILS_PAGE_MESSAGES: string[] = [
-  "Here are your car details. Does everything look right?",
-  "If you have a company-owned car, you can add your GST number after payment and get a GST invoice.",
-  "If you're buying car insurance for someone else, **tap here**",
+  "Here are your car details. I have fetched them from Vahan (government records). If you notice any mistakes, you can edit them.",
 ];
 
 /** Sequential messages shown on the user-details page (phone + pincode step). */
